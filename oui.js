@@ -23,8 +23,8 @@ function tri_insertion(tableau) {
     }
 }
 
-//fonction pour afficher les pays 
-function affichage_pays(countrytable, string) {
+//fonction pour regarder si les pays ont déjà une itération
+function is_country_there(countrytable, string) {
     for (let i = 0; i < countrytable.length; i++) {
         if (countrytable[i].country == string) {
             return true;
@@ -32,8 +32,8 @@ function affichage_pays(countrytable, string) {
     }
 }
 
-//fonction pour afficher les sociétés
-function affichage_compagnie(companytable, string) {
+//fonction pour regarder si les sociétés ont déjà une itération
+function is_company_there(companytable, string) {
     for (let i = 0; i < companytable.length; i++) {
         if (companytable[i].company == string) {
             return true;
@@ -45,7 +45,7 @@ function affichage_compagnie(companytable, string) {
 //si le deuxième argument est égal à "country", on affiche les pays et le nombre de fois qu'ils apparaissent
 if (args[2] == "country") {
     for (let i = 0; i < data.length; i++) {
-        if (!affichage_pays(countries, data[i].country)) {
+        if (!is_country_there(countries, data[i].country)) {
             let compteur = { country: data[i].country, Count: 1 };
             countries.push(compteur);
         }
@@ -68,7 +68,7 @@ if (args[2] == "country") {
 //si le deuxième argument est égal à "company", on affiche les sociétés et le nombre de fois qu'elles apparaissent
 else if (args[2] == "company") {
     for (let i = 0; i < data.length; i++) {
-        if (!affichage_compagnie(companies, data[i].company)) {
+        if (!is_company_there(companies, data[i].company)) {
             let compteur = { company: data[i].company, Count: 1 };
             companies.push(compteur);
         }
