@@ -9,6 +9,7 @@ const data=JSON.parse(rawdata);
 let countries =[];
 let companies=[];
 
+//fonction pour trier par insertion un tableau
 function tri_insertion(tableau){
     
     for(let i=0; i<tableau.length;i++){
@@ -22,7 +23,7 @@ function tri_insertion(tableau){
     }
 }
 
-
+//fonction pour afficher les pays 
 function affichage_pays(countrytable, string){
     for(let i=0; i<countrytable.length;i++){
         if(countrytable[i].country==string){
@@ -30,6 +31,8 @@ function affichage_pays(countrytable, string){
         }
     }
 }
+
+//fonction pour afficher les sociétés
 function affichage_compagnie(companytable, string){
     for(let i=0; i<companytable.length;i++){
         if(companytable[i].company==string){
@@ -37,6 +40,9 @@ function affichage_compagnie(companytable, string){
         }
     }
 }
+
+//main 
+//si le deuxième argument est égal à "country", on affiche les pays et le nombre de fois qu'ils apparaissent
 if(args[2]=="country"){
     for(let i=0; i<data.length; i++){
             if(!affichage_pays(countries,data[i].country)){
@@ -52,12 +58,14 @@ if(args[2]=="country"){
                 countries[j].Count++;
             }
         }
+    //tri du tableau contenant les pays et leurs itérations
     tri_insertion(countries);
+    //affichage du tableau contenant les pays et leurs itérations
     console.log(countries);
     
 }
 
-
+//si le deuxième argument est égal à "company", on affiche les sociétés et le nombre de fois qu'elles apparaissent
 else if(args[2]=="company"){
     for(let i=0; i<data.length; i++){
         if(!affichage_compagnie(companies,data[i].company)){
@@ -73,10 +81,13 @@ else if(args[2]=="company"){
             companies[j].Count++;
         }
     }
+//tri du tableau contenant les sociétés et leurs itérations
 tri_insertion(companies);
+//affiachage du tableau contenant les sociétés et leurs itérations
 console.log(companies);
 }
 
+//sinon on affiche une erreur
 else{
     console.log("not an option");
 }
