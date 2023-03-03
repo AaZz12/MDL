@@ -1,5 +1,5 @@
-const fs = require('fs');
-let rawdata = fs.readFileSync('users.json','utf8');
+const fs = require("fs");
+let rawdata = fs.readFileSync("users.json","utf8");
 
 const data=JSON.parse(rawdata);
 
@@ -19,7 +19,8 @@ function getDataUser(){
     //appel à l'affichage du menu
     afficherMenu();
     //si touche pressée=1, data_user=1, etc.
-    process.stdin.on("keypress",(str,key)=>{if(key.name=="1"){main(1);} if(key.name=="2"){main(2);} if(key.name=="q"){process.exit();}})
+    process.stdin.on("keypress",(str,key)=>{if(key.name=="1"){data_user=1;} if(key.name=="2"){data_user=2;} if(key.name=="q"){process.exit();}})
+    return data_user;
 }
 
 //déclaration de deux tableaux vides qui vont être nos réponses finales, contenant la valeur et le nombre d'itérations
@@ -60,28 +61,28 @@ function is_company(companytable, string){
 }
 
 //main 
-function main( data_user){
-    //let data_user=getDataUser();
+function main(){
+    let data_user=getDataUser();
     //si la valeur rentrée est égale à 2, on affiche les pays et leur nombre d'itérations
     if(data_user==1){
         //parcours du tableau
         for(let i=0; i<data.length; i++){
-                //si le pays n'est pas déjà dans le tableau on le rajoute
-                if(!is_country(countries,data[i].country)){
-                    //rajout dans le tableau avec un coût défini à 1
-                    let compteur={country:data[i].country, Count:1};
-                    countries.push(compteur);
-                }
-                
-                //sinon on rajoute 1 à notre tableau où se situe notre pays
-                else{
-                    let j=0;
-                    while(countries[j].country != data[i].country){
-                        j++;
-                    }
-                    countries[j].Count++;
-                }
+            //si le pays n'est pas déjà dans le tableau on le rajoute
+            if(!is_country(countries,data[i].country)){
+                //rajout dans le tableau avec un coût défini à 1
+                let compteur={country:data[i].country, Count:1};
+                countries.push(compteur);
             }
+                
+            //sinon on rajoute 1 à notre tableau où se situe notre pays
+            else{
+                let j=0;
+                while(countries[j].country != data[i].country){
+                    j++;
+                }
+                countries[j].Count++;
+            }
+        }
         //tri du tableau contenant les pays et leurs itérations
         tri_insertion(countries);
         //affichage du tableau contenant les pays et leurs itérations
