@@ -1,6 +1,7 @@
 const fs = require("fs");
+const proc=require("process");
 let rawdata = fs.readFileSync("users.json", "utf8");
-var args = process.argv;
+var args = proc.argv;
 
 const data = JSON.parse(rawdata);
 

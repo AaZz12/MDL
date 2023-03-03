@@ -1,7 +1,8 @@
 const fs = require("fs");
+const proc=require("process");
 let rawdata = fs.readFileSync("users.json","utf8");
 const readline=require("readline");
-readline.emitKeypressEvents(process.stdin);
+readline.emitKeypressEvents(proc.stdin);
 const data=JSON.parse(rawdata);
 
 //fonction pour afficher le menu
@@ -11,11 +12,11 @@ function afficherMenu(){
 
 
 //fonction pour récupérer la donnée rentrée par l'utilisateur 
-if(process.stdin.isTTY) process.stdin.setRawMode(true);
+if(proc.stdin.isTTY) proc.stdin.setRawMode(true);
 //appel à l'affichage du menu
 afficherMenu();
 // on rentre un argument différent en fonction de la touche pressée
-process.stdin.on("keypress", (str, key)=> {  if(key.name == "1") { main(1); } if(key.name == "2" ) {main(2); } if(key.name == "q"){process.exit();}} );
+proc.stdin.on("keypress", (str, key)=> {  if(key.name == "1") { main(1); } if(key.name == "2" ) {main(2); } if(key.name == "q"){proc.exit();}} );
 
 
 
