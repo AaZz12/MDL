@@ -39,7 +39,7 @@ function tri_insertion(tableau){
 //fonction pour afficher le tableau sans les crochets
 function afficher_tableau(tableau){
     for(let i of tableau){
-        console.log(i);
+        console.log("\x1b[36m%s\x1b[0m",i);
     }
 }
 
