@@ -1,27 +1,22 @@
 const fs = require("fs");
 let rawdata = fs.readFileSync("users.json","utf8");
-
+const readline=require("readline");
+readline.emitKeypressEvents(process.stdin);
 const data=JSON.parse(rawdata);
 
 //fonction pour afficher le menu
 function afficherMenu(){
-    console.log("Taper le numéro de ce que vous voulez afficher :\n 1-Pays \n 2-Sociétés \n q-Quitter");
+    console.log("Taper le numéro de ce que vous voulez afficher :\n", "\x1b[36m1-Pays\x1b[0m","\n","\x1b[31m2-Sociétés\x1b[0m" ,"\n","\x1b[32mq-Quitter\x1b[0m");
 }
 
 
 //fonction pour récupérer la donnée rentrée par l'utilisateur 
-function getDataUser(){
-    //déclaration d'une variable qui va être notre retour
-    let data_user;
-    const readline=require("readline");
-    readline.emitKeypressEvents(process.stdin);
-    if(process.stdin.isTTY) process.stdin.setRawMode(true);
-    //appel à l'affichage du menu
-    afficherMenu();
-    //si touche pressée=1, data_user=1, etc.
-    process.stdin.on("keypress",(str,key)=>{if(key.name=="1"){data_user=1;} if(key.name=="2"){data_user=2;} if(key.name=="q"){process.exit();}})
-    return data_user;
-}
+if(process.stdin.isTTY) process.stdin.setRawMode(true);
+//appel à l'affichage du menu
+afficherMenu();
+// on rentre un argument différent en fonction de la touche pressée
+process.stdin.on("keypress", (str, key)=> {  if(key.name == "1") { main(1); } if(key.name == "2" ) {main(2); } if(key.name == "q"){process.exit();}} );
+
 
 //déclaration de deux tableaux vides qui vont être nos réponses finales, contenant la valeur et le nombre d'itérations
 let countries =[];
@@ -61,8 +56,7 @@ function is_company(companytable, string){
 }
 
 //main 
-function main(){
-    let data_user=getDataUser();
+function main(data_user){
     //si la valeur rentrée est égale à 2, on affiche les pays et leur nombre d'itérations
     if(data_user==1){
         //parcours du tableau
@@ -118,5 +112,6 @@ function main(){
     else{
         console.log("not an option");
     }
+    //appel à l'affichage du menu
+    afficherMenu();
 }
-main();
