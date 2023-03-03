@@ -6,7 +6,7 @@ const data=JSON.parse(rawdata);
 
 //fonction pour afficher le menu
 function afficherMenu(){
-    console.log("Taper le numéro de ce que vous voulez afficher :\n", "\x1b[36m1-Pays\x1b[0m","\n","\x1b[31m2-Sociétés\x1b[0m" ,"\n","\x1b[32mq-Quitter\x1b[0m");
+    console.log("\x1b[35mTaper le numéro de ce que vous voulez afficher :\x1b[0m","\n", "\x1b[36m1-Pays\x1b[0m","\n","\x1b[31m2-Sociétés\x1b[0m" ,"\n","\x1b[32mq-Quitter\x1b[0m");
 }
 
 
@@ -18,9 +18,7 @@ afficherMenu();
 process.stdin.on("keypress", (str, key)=> {  if(key.name == "1") { main(1); } if(key.name == "2" ) {main(2); } if(key.name == "q"){process.exit();}} );
 
 
-//déclaration de deux tableaux vides qui vont être nos réponses finales, contenant la valeur et le nombre d'itérations
-let countries =[];
-let companies=[];
+
 
 //fonction pour trier par insertion un tableau
 function tri_insertion(tableau){
@@ -34,6 +32,13 @@ function tri_insertion(tableau){
             j=j-1;
         }
         tableau[j+1]=temp;
+    }
+}
+
+//fonction pour afficher le tableau sans les crochets
+function afficher_tableau(tableau){
+    for(let i of tableau){
+        console.log(i);
     }
 }
 
@@ -57,6 +62,9 @@ function is_company(companytable, string){
 
 //main 
 function main(data_user){
+    //déclaration de deux tableaux vides qui vont être nos réponses finales, contenant la valeur et le nombre d'itérations
+    let countries =[];
+    let companies=[];
     //si la valeur rentrée est égale à 2, on affiche les pays et leur nombre d'itérations
     if(data_user==1){
         //parcours du tableau
@@ -80,7 +88,7 @@ function main(data_user){
         //tri du tableau contenant les pays et leurs itérations
         tri_insertion(countries);
         //affichage du tableau contenant les pays et leurs itérations
-        console.log(countries);
+        afficher_tableau(countries);
         
     }
     
@@ -105,7 +113,7 @@ function main(data_user){
         //tri du tableau contenant les sociétés et leurs itérations
         tri_insertion(companies);
         //affiachage du tableau contenant les sociétés et leurs itérations
-        console.log(companies);
+        afficher_tableau(companies);
     }
     
     //sinon on affiche une erreur
